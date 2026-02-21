@@ -1,4 +1,4 @@
-# Welcome to TinyHuman
+# Welcome to Tiny Humans AI
 
 TinyHumans is an AI lab focused on creating AI algorithims that scale with big amounts of data at low cheap costs. See our work
 

@@ -1,7 +1,6 @@
-# Welcome to AlphaHuman
+# Welcome to TinyHuman
 
-Telegram has all the alpha, but you simply miss it. That's why we built AlphaHuman. An AI powered telegram client that supercharges your productivity.
+TinyHumans is an AI lab focused on creating AI algorithims that scale with big amounts of data. See our work
 
-- Chat Summaries: Select chats you want to summarize and get a report every morning.
-- Organize your Chats: Analyze 1000s of groups and messages, and efficiently organize all your chats. Control the chaos.
-- Manage Leads: Connect Telegram to your favourite CRM (Notion, Sheets, SalesForce, etc.) and sync data using a prompt.
+- NeoCortex Mk1 - A realtime LLM with built-in memory to understand context
+- AlphaHuman - An opensource (GNU) AI agent protocol that uses NeoCortex to execute tasks and consume real-time intelligence.

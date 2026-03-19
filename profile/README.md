@@ -2,7 +2,7 @@
 
 TinyHumans is an AI lab focused on creating AI algorithims that get us closer to artificial consciousness. See our work
 
-- [Neocortex](https://github.com/tinyhumansai/neocortex) - A LLM layer with built-in memory to understand large amounts of context and produce artificial consciousness.
+- [Neocortex](https://github.com/tinyhumansai/neocortex) - ([Paper](https://github.com/tinyhumansai/neocortex/tree/main/paper)) A LLM layer with built-in memory to understand large amounts of context and produce artificial consciousness.
 - [OpenHuman](https://github.com/tinyhumansai/OpenHuman) - An opensource (GNU) agent that uses the NeoCortex model to simulate a live subsconscious on human data.
 - [OpenHuman Skills](https://github.com/tinyhumansai/alphahuman-skills) - An opensource (GNU) registry of powerful skills written for OpenHuman to fetch realtime updates.
 

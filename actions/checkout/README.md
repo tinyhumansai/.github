@@ -14,6 +14,9 @@ and then adds the submodules itself:
 - **selectively**: a submodule whose path matches `exclude-submodules` is left
   as an empty directory, and nothing beneath it is visited.
 
+Only indexed gitlinks are updated. Stale `.gitmodules` declarations without a
+matching gitlink are ignored, including declarations in nested submodules.
+
 ```yaml
 - uses: tinyhumansai/.github/actions/checkout@<sha>
   with:
@@ -38,6 +41,28 @@ action's script took 62s (46 cloned, 5 wikis skipped).
 never written to a git config. `persist-credentials` defaults to `false`,
 unlike `actions/checkout`, because CI jobs that build repository code should
 not keep a token in `.git/config`.
+
+## Trusted-base fork pull requests
+
+`allow-unsafe-pr-checkout` defaults to `false` and forwards directly to the
+pinned `actions/checkout` action. A workflow triggered by `pull_request_target`
+or `workflow_run` that intentionally checks out a fork PR must explicitly set
+it to `true` after its own trust checks authorize that PR's code and runner
+access. The composite action does not decide whether a contributor is trusted.
+
+For example, after a trusted-base workflow verifies both the PR author and the
+triggering actor are permitted to use its private runner:
+
+```yaml
+- uses: tinyhumansai/.github/actions/checkout@<sha>
+  with:
+    ref: refs/pull/${{ github.event.pull_request.number }}/merge
+    allow-unsafe-pr-checkout: true
+    persist-credentials: false
+```
+
+Keep that opt-in behind the caller's membership and runner-routing gate.
+Ordinary checkout callers can omit it and retain the upstream refusal guard.
 
 ## Container jobs
 

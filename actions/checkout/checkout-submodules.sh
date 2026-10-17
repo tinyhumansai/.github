@@ -60,6 +60,20 @@ excluded() {
 	return 1
 }
 
+# .gitmodules can retain declarations after a gitlink is removed. Like a plain
+# submodule update, only update paths the index actually records as gitlinks.
+# NUL-delimited index entries preserve spaces and git's quoting-sensitive paths;
+# the exact comparison prevents a directory containing a gitlink from matching.
+is_gitlink() {
+	local dir="$1" path="$2" entry
+	while IFS= read -r -d '' entry; do
+		if [[ "${entry%% *}" == 160000 && "${entry#*$'\t'}" == "${path}" ]]; then
+			return 0
+		fi
+	done < <(git -C "${dir}" ls-files --stage -z -- ":(literal)${path}")
+	return 1
+}
+
 # update <parent rel> <submodule path>...: clone the given submodules of one
 # parent, at the commits it records.
 update() {
@@ -81,6 +95,7 @@ while ((${#level[@]})); do
 		[[ -f "${dir}/.gitmodules" ]] || continue
 		wanted=()
 		while read -r _ path; do
+			is_gitlink "${dir}" "${path}" || continue
 			rel="${path}"
 			[[ "${parent}" != . ]] && rel="${parent}/${path}"
 			if excluded "${rel}"; then

@@ -19,6 +19,9 @@ inputs:
   persist-credentials:
     description: Whether actions/checkout leaves the token in the repository's git config.
     default: "false"
+  allow-unsafe-pr-checkout:
+    description: Explicitly permit fork PR checkout in a trusted-base workflow after the caller has authorized its trust boundary.
+    default: "false"
   fetch-depth:
     description: History depth of the repository itself (0 = all history).
     default: "1"
@@ -51,6 +54,7 @@ runs:
         path: ${{ inputs.path }}
         token: ${{ inputs.token }}
         persist-credentials: ${{ inputs.persist-credentials }}
+        allow-unsafe-pr-checkout: ${{ inputs.allow-unsafe-pr-checkout }}
         fetch-depth: ${{ inputs.fetch-depth }}
         sparse-checkout: ${{ inputs.sparse-checkout }}
         submodules: false

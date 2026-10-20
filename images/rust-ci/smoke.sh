@@ -13,6 +13,7 @@ cargo llvm-cov --version
 cargo deny --version
 cargo nextest --version
 tinymold --version
+test "$(tinymold --version)" = "tinymold ${TINYMOLD_VERSION}"
 sccache --version
 mongod --version | head -1
 mongod --version | head -1 | grep -F "v${RUST_CI_MONGODB_MAJOR}."

@@ -10,7 +10,7 @@ command:
 | Rust | `stable` (1.99.1) and OpenHuman `1.96.1` with rustfmt, clippy, llvm-tools; `1.96` (MSRV) |
 | cargo-llvm-cov, cargo-deny | 0.9.1, 0.20.2 |
 | cargo-nextest | 0.9.148 |
-| tinymold | 0.3.1 |
+| tinymold | 0.3.2 |
 | sccache | 0.18.0 |
 | Node.js, pnpm | 24.22.0, 10.10.0 |
 | tauri-driver | 2.0.5 |

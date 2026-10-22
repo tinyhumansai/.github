@@ -40,6 +40,8 @@ node --version
 pnpm --version
 python3 -c 'import tomli'
 aws --version
+# v1 writes a kubeconfig current kubectl refuses (exec API v1alpha1).
+aws --version | grep -q '^aws-cli/2\.'
 ssh -V
 slirp4netns --version
 iptables --version

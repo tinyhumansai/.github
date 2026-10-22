@@ -91,7 +91,8 @@ and D-Bus. This verifies the image dependencies, not the full OpenHuman suite.
 
 Deploy jobs can start Docker in rootless mode using `docker/setup-docker-action`.
 The image includes `uidmap`, `slirp4netns`, `iptables`, `iproute2`, OpenSSH and
-AWS CLI. A VM runner must supply user namespaces and at least 65,536 subordinate
+AWS CLI v2 (`AWSCLI_VERSION`; v1's `aws eks update-kubeconfig` writes an exec
+API current kubectl refuses). A VM runner must supply user namespaces and at least 65,536 subordinate
 UIDs/GIDs for its job user. No root daemon or privileged Docker socket is baked
 into this image. Verify a rootless build in the target VM before enabling deploys;
 image build smoke tests cannot prove the host kernel supports user namespaces.

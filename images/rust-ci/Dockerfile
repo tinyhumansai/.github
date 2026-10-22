@@ -38,8 +38,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libgtk-3-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf \
         libasound2-dev libxdo-dev libxtst-dev libx11-dev libevdev-dev \
         xvfb xauth at-spi2-core dbus-x11 webkit2gtk-driver \
-        libcap2 awscli openssh-client uidmap slirp4netns iptables iproute2 \
+        libcap2 openssh-client uidmap slirp4netns iptables iproute2 \
     && rm -rf /var/lib/apt/lists/*
+
+# AWS CLI v2 for deploy jobs. Ubuntu's `awscli` package is v1 (1.22 on
+# jammy), whose `aws eks update-kubeconfig` writes the
+# `client.authentication.k8s.io/v1alpha1` exec API that kubectl 1.24 and
+# later refuse. The digest is of AWS's signed release zip (signature checked
+# against the AWS CLI team's key, FB5DB77FD5C118B80511ADA8A6310ACC4672475C).
+ARG AWSCLI_VERSION=2.37.10
+ARG AWSCLI_SHA256=1aaed142cb63294e41ef70431fe9c602dbb869f8a21b6b8fc9d5ffd53b5c9235
+RUN curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" -o /tmp/awscli.zip \
+    && echo "${AWSCLI_SHA256}  /tmp/awscli.zip" | sha256sum -c --quiet - \
+    && unzip -q /tmp/awscli.zip -d /tmp/awscli \
+    && /tmp/awscli/aws/install \
+    && rm -rf /tmp/awscli /tmp/awscli.zip \
+    && aws --version | grep -q "^aws-cli/${AWSCLI_VERSION} "
 
 # MongoDB and mongosh, for tests that need a real server
 # (`mongod --fork`, replica sets with `rs.initiate`): the runner's service
